@@ -1,0 +1,27 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name_ar: MyString
+  name_en: MyString
+  account_number: MyString
+  parent_account: 1
+  final_account: 1
+  notes: MyString
+  account_type: 1
+  account_nature: 1
+  credit: 1.5
+  debit: 1.5
+  balance: 1.5
+
+two:
+  name_ar: MyString
+  name_en: MyString
+  account_number: MyString
+  parent_account: 1
+  final_account: 1
+  notes: MyString
+  account_type: 1
+  account_nature: 1
+  credit: 1.5
+  debit: 1.5
+  balance: 1.5

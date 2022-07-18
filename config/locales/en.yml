@@ -1,33 +1,194 @@
-# Files in the config/locales directory are used for internationalization
-# and are automatically loaded by Rails. If you want to use locales other
-# than English, add the necessary files in this directory.
-#
-# To use the locales, use `I18n.t`:
-#
-#     I18n.t 'hello'
-#
-# In views, this is aliased to just `t`:
-#
-#     <%= t('hello') %>
-#
-# To use a different locale, set it with `I18n.locale`:
-#
-#     I18n.locale = :es
-#
-# This would use the information in config/locales/es.yml.
-#
-# The following keys must be escaped otherwise they will not be retrieved by
-# the default I18n backend:
-#
-# true, false, on, off, yes, no
-#
-# Instead, surround them with single quotes.
-#
-# en:
-#   'true': 'foo'
-#
-# To learn more, please read the Rails Internationalization guide
-# available at https://guides.rubyonrails.org/i18n.html.
-
 en:
   hello: "Hello world"
+
+  Accepted: "Accepted"
+  accept_app: "Accept the Application"
+  accept_the_document: "accept the document"
+  account_id: "Account Id"
+  add_new: "Add New"
+  actions: "Actions"
+  age: "Age"
+  all_cities: "all cities"
+  allowd_img_files: "Allowed file types: png, jpg, jpeg."
+  app_details: "Application Details"
+  app_name: "Application Number"
+  ar: "Arabic"
+  are_you_sure_to_cancel: "Are you sure you would like to cancel?"
+  auth_token: "Authentication Token"
+  avatar: "avatar"
+
+  attachment_type: "attachment type"
+  attachment_types: "attachment types"
+  attachments: "attachments"
+
+  birth_date: "Birth Date"
+  business_sector: "Business Sector"
+
+  city: "City"
+  cities: "Cities"
+  code: "code"
+  contact_us: "contact us"
+  continue: "continue"
+  country: "country"
+  country_key: "country key"
+  country_mn: "country mobile number"
+  countries: "countries"
+  created_at: "created at"
+
+  discard: "discard"
+
+  dose_date: "dose date"
+
+  dose_type: "dose type"
+
+  drag_files_here_to_upload: "drag files here to upload"
+  edit: "edit"
+  email: "Email"
+  en: "English"
+
+  errors_prevent_submit: "Sorry, looks like there are some errors detected, please try again."
+  employees: "employees"
+
+  female: "Female"
+  fifth_section: "fifth section"
+  first_section: "first section"
+  first_slider: "first_slider"
+  first_step: "first step"
+  follow_application: "follow application"
+  for_this_reasons: "for this reasons"
+  fourth_section: "fourth_section"
+  forgot_password: "forgot password"
+
+  gender: Gender"
+
+  health_care_center: "Health Care Center"
+
+  jordanian: "jordanian"
+
+  homepage: "Home Page"
+
+
+  language: "language"
+
+  lot_no: "lot no"
+
+  main_banner: "main banner"
+  male: "Male"
+  mobile_number: "mobile number"
+
+  name: "Name"
+  name_ar: "Arabic Name"
+  name_en: "English Name"
+  national_number: "national number"
+  new_application: "new application"
+  no_return: "No Return"
+  non_jordanian: "non jordanian"
+
+  ok_got_it: "Ok, got it!"
+
+  paragraph_ar: "paragraph in Arabic"
+  paragraph_en: "paragraph in English"
+  password: "password"
+  personal_number: "personal number"
+  previous: "previous"
+  please_wait: "please wait"
+  
+  reason_for_rejection: "reason for rejection"
+  Rejected: "Rejected"
+  rejected_files: "rejected files"
+  reject_app: "reject the application"
+  reject_the_document: "reject the document"
+  related_cities: "Related Cities"
+  required: "required"
+
+  saved_successfully: "successfully saved"
+  search: "search"
+  second_step: "second_step"
+  section_title: "section title"
+  select: "select"
+  settings: "settings"
+  sender_number: "Sender Number"
+  show: "show"
+  sign_in: "sign in"
+  sign_out: "sign out"
+  signed_in_successfully: "signed in successfully"
+  site_pages: "site pages"
+  site_settings: "site settings"
+  sms_provider: "sms provider"
+  status: "status"
+  submit: "submit"
+
+  third_step: "third step"
+  title: "title"
+  title_ar: "Arabic title"
+  title_en: "english title"
+
+  upload_up_to_ten: "upload up to ten"
+  uploaded_files: "uploaded files"
+  username: "username"
+  users_applications: "users applications"
+  user_attachments: "user attachments"
+  user_details: "user details"
+  user_doses: "user doses"
+  users: "users"
+  users_list: "users list"
+
+  vaccine_status: "Vaccine Sstatus"
+  vaccine_types: "vaccine types"
+
+  Waiting: "Waiting"
+  wrong_name_or_password: "wrong name or password"
+
+
+  yes_cancel_it: "yes cancel it"
+  your_application_has_accepted: "your application has been accepted"
+  your_application_has_accepted: "your application has been accepted"
+  your_application_under_processing: "your application is under processing"
+
+  your_form_didnot_cancelled: "your form did not cancelled"
+  
+
+
+  date:
+    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
+    formats:
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
+      short: "%b %d"
+  time:
+    am: "am"
+    formats:
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+    pm: pm
+
+  
+  activerecord:
+    errors:
+      models:
+        user:  
+          attributes:
+            password:
+              too_short: "كلمة المرور يجب ألا تقل عن 8 حروف"
+            email:
+              taken: "مسجل بالفعل"
+              invalid: "البريد الإلكترونى غير مقبول" 
+              blank: "البريد الإلكترونى لا يمكن أن يكون فارغا"
+            personal_id: 
+              taken: "Personal Id is registered before" 
+            phone:
+              taken: "Phone is registered before"
+        user_attachment:
+          attributes:
+            file:
+              content_type_invalid: "content type invalid"
+
+      messages:
+        record_invalid: "غير مقبول"
+
+  
+
+
+
+

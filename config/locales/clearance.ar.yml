@@ -1,0 +1,58 @@
+ar:
+  clearance:
+    models:
+      clearance_mailer:
+        change_password: Change your password
+  clearance_mailer:
+    change_password:
+      closing: "إذا لم تكن قد أجريت هذه التغييرات أو كنت تعتقد أن شخصًا غير مصرح له قد دخل إلى حســابك، يجــب عليــك تغيير كلمة المرور لحسابك في أقرب وقت ممكن"
+      link_text: "استعد كلمة المرور"
+      opening: "لقد طلبت إعادة تعيين كلمة المرور الخاصة بحسابك  لذا أرسلنا لك هذا الرابط"
+  flashes:
+    failure_after_create: "خطأ فى البريد الإلكترونى أو كلمة المرور "
+    failure_after_update: "كلمة المرور لا تقل عن 8 حروف ولايمكن تركها فارغة"
+    failure_when_forbidden: Please double check the URL or try submitting the form again.
+    failure_when_not_signed_in: Please sign in to continue.
+    failure_when_locked_account: "حسابك معلق، إضغط على الرابط المرسل لبريدك لتفعيل الحساب"
+    failure_when_disabled_account: "حسابك معطل ، تواصل مع الإدارة لتفعيل الحساب"
+  helpers:
+    label:
+      password:
+        email: Email address
+      password_reset:
+        password: Choose password
+    submit:
+      password:
+        submit: Reset password
+      password_reset:
+        submit: Save this password
+      session:
+        submit: Sign in
+      user:
+        create: Sign up
+  layouts:
+    application:
+      sign_in: تسجيل دخول
+      sign_out: خروج
+    admin:
+      sign_out: خروج
+
+  passwords:
+    create:
+      description: "سوف تصلك تعليمات إعادة تعيين كلمة المرور الخاصة بحسابك على بريدك الإلكترونى خلال دقائق"
+    edit:
+      description: Your password has been reset. Choose a new password below.
+      title: "غير كلمة المرور"
+    new:
+      description: To be emailed a link to reset your password, please enter
+        your email address.
+      title: "استعادة كلمة المرور"
+      sign_up: حساب جديد
+  sessions:
+    form:
+      forgot_password: "نسيت كلمة المرور؟"
+      sign_up: حساب جديد
+      sign_in: "سجل دخول"
+    new:
+      title: Sign in
+  

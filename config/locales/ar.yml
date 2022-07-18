@@ -1,0 +1,187 @@
+ar:
+  hello: "Hello world"
+
+  Accepted: "مقبول"
+  accept_app: "اقبل الطلب"
+  accept_the_document: "اقبل الوثيقة"
+  account_id: "رقم الحساب"
+  add_new: "أضف جديد"
+  actions: "التحكم"
+  age: "العمر"
+  all_cities: "كل المدن"
+  allowd_img_files: الملفات المسموحة بامتداد jpg,jpeg,png
+  app_details: "تفاصيل الطلب"
+  app_name: "رقم الطلب"
+  ar: "العربية"
+  are_you_sure_to_cancel: "هل أنت متأكد أنك تريد الإلغاء؟"
+  auth_token: "رمز المصادقة"
+  avatar: "الصورة الشخصية"
+
+  attachment_type: "نوع المرفق"
+  attachment_types: "أنواع المرفقات"
+  attachments: "المرفقات"
+
+  birth_date: "تاريخ الميلاد"
+  business_sector: "قطاع الأعمال"
+
+  city: "المدينة"
+  cities: "المدن"
+  code: "الكود"
+  contact_us: "اتصل بنا"
+  continue: "التالى"
+  country: "الدولة"
+  country_key: "مفتاح الدولة"
+  country_mn: "رقم الموبايل للموطن الأصلى"
+  countries: "الدول"
+  created_at: "تاريخ الإنشاء"
+
+  discard: "إلغاء"
+
+  dose_date: "تاريخ الجرعة "
+
+  dose_type: "نوع اللقاح"
+
+  drag_files_here_to_upload: "قم بسحب وإفلات الملفات لرفعها"
+  edit: "تعديل"
+  email: "البريد الإلكترونى"
+  employees: "الموظفين"
+  en: "English"
+
+  errors_prevent_submit: "معذرة ، يبدو أنه تم اكتشاف بعض الأخطاء ، يرجى المحاولة مرة أخرى. "
+
+  female: "أنثى"
+  fifth_section: "المقطع الخامس"
+  first_section: "المقطع الثاني"
+  first_slider: "عارض الصور"
+  first_step: "الخطوة الأولى"
+  follow_application: "متابعة الطلب"
+  for_this_reasons: "للأسباب التالية"
+  fourth_section: "المقطع الرابع"
+  forgot_password: "نسيت كلمة المرور"
+
+  gender: "النوع"
+
+  health_care_center: "مركز الرعاية الصحية"
+
+  jordanian: "أردنى"
+
+  homepage: "الصفحة الرئيسية"
+
+
+  language: "اللغة"
+
+  lot_no: "رقم الجرعة"
+
+  main_banner: "البانر الرئيسى"
+  male: "ذكر"
+  mobile_number: "رقم الموبايل"
+
+  name: "الاسم"
+  name_ar: "الاسم باللغة العربية"
+  name_en: "الاسم باللغة الانجليزية"
+  national_number: "رقم الهوية"
+  new_application: "طلب جديد"
+  no_return: "العودة لاستكمال البيانات"
+  non_jordanian: "غير أردنى"
+
+  ok_got_it: "حسنا"
+
+  paragraph_ar: " الوصف باللغة العربية"
+  paragraph_en: "الوصف باللغة الانجليزية"
+  password: "كلمة المرور"
+  personal_number: "الرقم الشخصي"
+  previous: "السابق"
+  please_wait: "جارى حفظ البيانات"
+  
+  reason_for_rejection: "سبب الرفض"
+  Rejected: "مرفوض"
+  rejected_files: "الوثائق المرفوضة"
+  reject_app: "ارفض الطلب"
+  reject_the_document: "ارفض الوثيقة"
+  related_cities: "المدن المتاحة"
+  required: "هذا الحقل مطلوب"
+
+  saved_successfully: "تم الحفظ بنجاح"
+  search: "ابحث"
+  second_step: الفقرة الثانية
+  section_title: "عنوان الفقرة"
+  select: "اختر"
+  sender_number: "رقم المرسل"
+  settings: "الإعدادات"
+  show: "عرض"
+  sign_in: "تسجيل الدخول"
+  sign_out: "تسجيل الخروج"
+  signed_in_successfully: "تم تسجيل الدخول بنجاح"
+  site_pages: "صفحات الموقع"
+  site_settings: "إعدادات الموقع"
+  sms_provider: "مقدم خدمة الرسائل القصيرة"
+  status: "الحالة"
+  submit: "حفظ"
+
+  third_step: "الفقرة الثالثة"
+  title: "العنوان"
+  title_ar: "العنوان باالغة العربية"
+  title_en: "العنوان باللغة الإنجليزية"
+
+  upload_up_to_ten: "ارفع حتى عشر ملفات"
+  uploaded_files: "الملفات المرفوعة"
+  username: "اسم المستخدم"
+  users_applications: "مقدمى الطلبات"
+  user_attachments: "المرفقات"
+  user_details: "بيانات المواطن"
+  user_doses: "اللقاحات المأخوذة"
+  users: "الأعضاء"
+  users_list: "قائمة الأعضاء"
+
+  vaccine_status: "حالة اللقاح"
+  vaccine_types: "أنواع اللقاحات"
+
+  Waiting: "قيد الانتظار"
+  wrong_name_or_password: "خطأ فى الاسم أو كلمة المرور"
+
+
+  yes_cancel_it: "نعم أريد الإلغاء"
+  your_application_has_accepted: "لقد تم قبول طلبك"
+  your_application_has_rejected: "لقد تم رفض الطلب الذى قدمته"
+  your_application_under_processing: " لم يتم الانتهاء من معاجة طلبك "
+
+  your_form_didnot_cancelled: "لم يتم إلغاء البيانات المدخلة"
+
+
+  date:
+    month_names: [~, يناير, فبراير, مارس, أبريل, مايو, يونية, يوليو, أغسطس, سبتمبر, أكتوبر, نوفمبر, ديسمبر]
+    formats:
+      default: "%Y-%m-%d"
+      long: "%B %d, %Y"
+      short: "%b %d"
+  time:
+    am: "صباحا"
+    formats:
+      default: ! '%a, %d %b %Y %H:%M:%S %z'
+      long: ! '%B %d, %Y %H:%M'
+      short: ! '%d %b %H:%M'
+    pm: pm
+
+
+      
+  activerecord:
+    errors:
+      models:
+        user:  
+          attributes:
+            password:
+              too_short: "كلمة المرور يجب ألا تقل عن 8 حروف"
+            email:
+              taken: "مسجل بالفعل"
+              invalid: "البريد الإلكترونى غير مقبول" 
+              blank: "البريد الإلكترونى لا يمكن أن يكون فارغا"
+            personal_id: 
+              taken: "الرقم الوطنى مسجل من قبل" 
+            phone:
+              taken: "رقم الموبايل مسجل من قبل"
+        user_attachment:
+          attributes:
+            file:
+              content_type_invalid: "نوع  المرفق غير مقبول"
+      messages:
+        record_invalid: "غير مقبول"

@@ -1,0 +1,72 @@
+<%= form_with(model: account) do |form| %>
+  <% if account.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(account.errors.count, "error") %> prohibited this account from being saved:</h2>
+
+      <ul>
+        <% account.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name_ar, style: "display: block" %>
+    <%= form.text_field :name_ar %>
+  </div>
+
+  <div>
+    <%= form.label :name_en, style: "display: block" %>
+    <%= form.text_field :name_en %>
+  </div>
+
+  <div>
+    <%= form.label :account_number, style: "display: block" %>
+    <%= form.text_field :account_number %>
+  </div>
+
+  <div>
+    <%= form.label :parent_account, style: "display: block" %>
+    <%= form.number_field :parent_account %>
+  </div>
+
+  <div>
+    <%= form.label :final_account, style: "display: block" %>
+    <%= form.number_field :final_account %>
+  </div>
+
+  <div>
+    <%= form.label :notes, style: "display: block" %>
+    <%= form.text_field :notes %>
+  </div>
+
+  <div>
+    <%= form.label :account_type, style: "display: block" %>
+    <%= form.number_field :account_type %>
+  </div>
+
+  <div>
+    <%= form.label :account_nature, style: "display: block" %>
+    <%= form.number_field :account_nature %>
+  </div>
+
+  <div>
+    <%= form.label :credit, style: "display: block" %>
+    <%= form.text_field :credit %>
+  </div>
+
+  <div>
+    <%= form.label :debit, style: "display: block" %>
+    <%= form.text_field :debit %>
+  </div>
+
+  <div>
+    <%= form.label :balance, style: "display: block" %>
+    <%= form.text_field :balance %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
