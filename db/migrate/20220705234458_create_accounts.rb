@@ -4,7 +4,7 @@ class CreateAccounts < ActiveRecord::Migration[7.0]
       t.string :name_ar
       t.string :name_en
       t.string :account_number
-      t.string :parent_account
+      t.integer :parent_account
       t.integer :final_account
       t.string :notes
       t.integer :account_type

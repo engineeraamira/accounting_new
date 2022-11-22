@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  currency: one
+  trans_id: MyString
+  trans_date: 2022-07-18
+  posted_date: 2022-07-18
+  created_by: 1
+  posted_by: 1
+  description: MyText
+  status: 1
+
+two:
+  currency: two
+  trans_id: MyString
+  trans_date: 2022-07-18
+  posted_date: 2022-07-18
+  created_by: 1
+  posted_by: 1
+  description: MyText
+  status: 1

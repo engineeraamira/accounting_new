@@ -1,0 +1,57 @@
+<%= form_with(model: daily_transaction_detail) do |form| %>
+  <% if daily_transaction_detail.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(daily_transaction_detail.errors.count, "error") %> prohibited this daily_transaction_detail from being saved:</h2>
+
+      <ul>
+        <% daily_transaction_detail.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :daily_transaction_id, style: "display: block" %>
+    <%= form.text_field :daily_transaction_id %>
+  </div>
+
+  <div>
+    <%= form.label :account_id, style: "display: block" %>
+    <%= form.text_field :account_id %>
+  </div>
+
+  <div>
+    <%= form.label :cost_center_id, style: "display: block" %>
+    <%= form.text_field :cost_center_id %>
+  </div>
+
+  <div>
+    <%= form.label :currency_id, style: "display: block" %>
+    <%= form.text_field :currency_id %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.label :debit, style: "display: block" %>
+    <%= form.text_field :debit %>
+  </div>
+
+  <div>
+    <%= form.label :credit, style: "display: block" %>
+    <%= form.text_field :credit %>
+  </div>
+
+  <div>
+    <%= form.label :item_date, style: "display: block" %>
+    <%= form.date_field :item_date %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

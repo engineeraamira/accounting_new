@@ -3,7 +3,18 @@ class AccountsController < ApplicationController
 
   # GET /accounts or /accounts.json
   def index
-    @accounts = Account.all
+    respond_to do |format|
+        format.html { @accounts = Account.all }
+        format.xlsx { @accounts = Account.order(:account_number).includes(:account).all }
+    end
+  end
+
+  def import
+    Account.import(params[:file])
+    redirect_to accounts_path, notice: "تم استيراد الحسابات بنجاح"
+  end
+
+  def trial_balance
   end
 
   def accounts_tree
@@ -74,6 +85,16 @@ class AccountsController < ApplicationController
 
   # POST /accounts or /accounts.json
   def create
+    params[:account][:parent_account] = params[:account][:ancestry]
+    if(params[:account][:ancestry] != nil && params[:account][:ancestry]) != ''
+      @parent = Account.find_by_id(params[:account][:ancestry])
+      @grand_parent = @parent.ancestry
+      if @grand_parent == nil
+        params[:account][:ancestry] = params[:account][:ancestry]
+      else
+        params[:account][:ancestry] = @grand_parent.to_s + "/" + params[:account][:ancestry].to_s
+      end
+    end
     @account = Account.new(account_params)
     if @account.save
       render json: {"Success": true, result: t('saved_successfully')}
@@ -113,6 +134,6 @@ class AccountsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def account_params
-      params.require(:account).permit(:name_ar, :name_en, :account_number, :parent_account, :final_account, :notes, :account_type, :account_nature, :credit, :debit, :balance)
+      params.require(:account).permit(:name_ar, :name_en, :account_number, :parent_account, :ancestry, :ancestry_depth, :final_account, :notes, :account_type, :account_nature, :credit, :debit, :balance)
     end
 end

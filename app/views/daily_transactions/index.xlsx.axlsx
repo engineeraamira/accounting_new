@@ -1,0 +1,13 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "القيود") do |sheet|
+    style1 = sheet.styles.add_style(:font_name => "Arial", :sz => 15, :i => true, :bg_color => "97d1e1", :fg_color => "091e64", :border => { :style => :thick, :color => "00" }, :alignment => {:horizontal=>:center, :vertical =>:center, :wrap_text => true })
+    style2 = sheet.styles.add_style(:font_name => "Arial", :sz => 15, :alignment => { :horizontal=> :center })
+    sheet.add_row ["رقم القيد","تاريخ القيد","بيان القيد","اسم الحساب","البيان","مدين","دائن","العملة","مركز التكلفة","التاريخ"], :height => 25, :style => style1
+    @daily_transaction_details.each do |transaction|
+        @daily_transaction = transaction.daily_transaction
+        @cost_center = (transaction.cost_center_id != nil)? transaction.cost_center.name_ar : ""
+        @currency = (transaction.currency_id != nil)? transaction.currency.name_ar : ""
+        sheet.add_row [@daily_transaction.id, @daily_transaction.trans_date.to_s, @daily_transaction.description, transaction.account.name_ar, transaction.description, transaction.debit, transaction.credit, @currency, @cost_center, transaction.item_date.to_s], :style => style2
+    end
+end
+

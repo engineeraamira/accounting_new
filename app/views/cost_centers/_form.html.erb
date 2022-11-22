@@ -1,0 +1,57 @@
+<%= form_with(model: cost_center) do |form| %>
+  <% if cost_center.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(cost_center.errors.count, "error") %> prohibited this cost_center from being saved:</h2>
+
+      <ul>
+        <% cost_center.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :name_en, style: "display: block" %>
+    <%= form.text_field :name_en %>
+  </div>
+
+  <div>
+    <%= form.label :name_ar, style: "display: block" %>
+    <%= form.text_field :name_ar %>
+  </div>
+
+  <div>
+    <%= form.label :parent, style: "display: block" %>
+    <%= form.text_field :parent %>
+  </div>
+
+  <div>
+    <%= form.label :status, style: "display: block" %>
+    <%= form.check_box :status %>
+  </div>
+
+  <div>
+    <%= form.label :deleted, style: "display: block" %>
+    <%= form.check_box :deleted %>
+  </div>
+
+  <div>
+    <%= form.label :deleted_by, style: "display: block" %>
+    <%= form.number_field :deleted_by %>
+  </div>
+
+  <div>
+    <%= form.label :deleted_date, style: "display: block" %>
+    <%= form.datetime_field :deleted_date %>
+  </div>
+
+  <div>
+    <%= form.label :created_by, style: "display: block" %>
+    <%= form.number_field :created_by %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

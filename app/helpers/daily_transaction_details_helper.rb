@@ -1,0 +1,2 @@
+module DailyTransactionDetailsHelper
+end
