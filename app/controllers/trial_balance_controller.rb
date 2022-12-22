@@ -79,7 +79,13 @@ class TrialBalanceController < ApplicationController
         #sum all trans for all accounts
         @accounts = Account.order(:account_number).all
         #@accounts = Account.order(:account_number).includes(:daily_transaction_details).all.references(:daily_transaction_details)    
-        @hash = Account.includes(:daily_transaction_details).group('accounts.id').pluck('accounts.id, SUM(daily_transaction_details.debit)', 'SUM(daily_transaction_details.credit)')
+        if(!(params[:currency_id].empty?))
+            @hash = Account.includes(:daily_transaction_details).where(daily_transaction_details: {currency_id: params[:currency_id]}).group('accounts.id').pluck('accounts.id, SUM(daily_transaction_details.debit)', 'SUM(daily_transaction_details.credit)')
+        else
+            @hash = Account.includes(:daily_transaction_details).group('accounts.id').pluck('accounts.id, SUM(daily_transaction_details.debit)', 'SUM(daily_transaction_details.credit)')
+        end
+        #puts "hhhhhhh"
+        #puts @hash
         @familiar_array = {}
         @get_accounts_data = @accounts.pluck(:id, :parent_account, :ancestry)
         #sum_children_transactions
@@ -97,8 +103,10 @@ class TrialBalanceController < ApplicationController
             @childrenIds.each do |child|
                 @child_id = child[0]
                 $total_trans = @hash.detect{ |(n, _, _)| ((n == @child_id)) }
-                @familiar_array[account.id][0] += ($total_trans[1] == nil)? 0.00 : $total_trans[1]   
-                @familiar_array[account.id][1] += ($total_trans[2] == nil)? 0.00 : $total_trans[2]  
+                if $total_trans != nil
+                    @familiar_array[account.id][0] += ($total_trans[1] == nil)? 0.00 : $total_trans[1]   
+                    @familiar_array[account.id][1] += ($total_trans[2] == nil)? 0.00 : $total_trans[2] 
+                end 
             end
             #puts @familiar_array
         end

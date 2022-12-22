@@ -1,58 +1,109 @@
+// require datatables/jquery.dataTables.min
+
 "use strict";
-var KTModalNewTarget=function(){
+
+// Class definition
+var KTDatatablesServerSide = function () {
+    // Shared variables
     var t,e,n,a,o,i;
-    return{
-        init:function()
-        {
-            (i=document.querySelector("#kt_modal_new_target"))&&
+    var table;
+    var dt;
+    // Private functions
+    var initDatatable = function () {
+        dt = $("#kt_table_users").DataTable({
+            searchDelay: 500,
+            processing: true,
+            serverSide: true,
+            order: [[1, 'asc']],
+            stateSave: true,
+            ajax: {
+                'url': "/draw_currencies",
+                "data": function ( d ) {
+                   
+                }
+            },            
+            columns: [
+                { data: 'currencyCode' },
+                { data: 'name' },
+                { data: 'rate' },
+                { data: 'nameAr' },
+                { data: 'updatedDate' },
+                { data: 'actions'},
+            ],
+            columnDefs: [
+                
+              
+              
+            ],
+            // Add data-filter attribute
+            createdRow: function (row, data, dataIndex) {
+                $(row).find('td:eq(4)').attr('data-filter', data.CreditCardType);
+            }
+        });
+
+        table = dt.$;
+
+        // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
+        dt.on('draw', function () {
+            initToggleToolbar();
+            toggleToolbars();
+            handleDeleteRows();
+            KTMenu.createInstances();
+        });
+    };
+
+    $(document).on("click",".edit_item",function(e) {
+        var details =  $(this).data('details');
+        console.log(details);
+        $('#currency_id').val(details["id"]);
+        $('#currency_name_ar').val(details["name_ar"]);
+        $('#currency_name_en').val(details["name_en"]);
+        $('#currency_code').val(details["code"]);
+        $('#currency_rate').val(details["rate"]);
+        $('#currency_status').attr('checked', details["status"] );             
+    });
+
+    $(document).on("click","#add_item",function(e) {
+        document.querySelector("#kt_modal_add_permission_form").reset();
+    });
+
+    var handleValidations = function(){
+        (i=document.querySelector("#kt_modal_add_permission"))&&
             (
                 o=new bootstrap.Modal(i),
-                a=document.querySelector("#kt_modal_new_target_form"),
-                t=document.getElementById("kt_modal_new_target_submit"),
-                e=document.getElementById("kt_modal_new_target_cancel"),
-                // new Tagify(a.querySelector('[name="tags"]'),{
-                //     whitelist:["Important","Urgent","High","Medium","Low"],
-                //     maxTags:5,
-                //     dropdown:{
-                //         maxItems:10,
-                //         enabled:0,
-                //         closeOnSelect:!1
-                //     }
-                // }).on("change",(function(){
-                //     n.revalidateField("tags")
-                // })),
-                //$(a.querySelector('[name="due_date"]')).flatpickr({enableTime:!0,dateFormat:"d, M Y, H:i"}),
-                //$(a.querySelector('[name="team_assign"]')).on("change",(function(){n.revalidateField("team_assign")})),
+                a=document.querySelector("#kt_modal_add_permission_form"),
+                t=document.getElementById("kt_modal_add_permission_submit"),
+                e=document.getElementById("kt_modal_add_permission_cancel"),
                 n=FormValidation.formValidation(a,{
                     fields:{
-                        code:{
+                        'currency[name_ar]':{
                             validators:{
                                 notEmpty:{
-                                    message:"رقم المركز مطلوب"
+                                    message:"الاسم العربى مطلوب"
                                 }
                             }
                         },
-                        name_ar:{
-                            validators:{
-                                notEmpty:{
-                                    message:"اسم المركز مطلوب"
-                                }
-                            }
-                        },
-                        name_en:{
+                        'currency[name_en]':{
                             validators:{
                                 notEmpty:{
                                     message:"الاسم اللاتينى مطلوب"
                                 }
                             }
+                        },
+                        'currency[code]':{
+                            validators:{
+                                notEmpty:{
+                                    message:"الرمز مطلوب"
+                                }
+                            }
+                        },
+                        'currency[rate]':{
+                            validators:{
+                                notEmpty:{
+                                    message:"المعدل مطلوب"
+                                }
+                            }
                         }
-                        // "targets_notifications[]":{
-                        //     validators:{
-                        //         notEmpty:{
-                        //             message:"Please select at least one communication method"
-                        //         }
-                        //     }
-                        // }
                     },
                     plugins:{
                         trigger:new FormValidation.plugins.Trigger,
@@ -66,12 +117,19 @@ var KTModalNewTarget=function(){
                 t.addEventListener("click",(function(e){
                     e.preventDefault(),
                     n&&n.validate().then((function(e){
-                        var elements = new FormData($('#kt_modal_new_target_form')[0]);
+                        var elements = new FormData($('#kt_modal_add_permission_form')[0]);
+                        var item_id = $("#currency_id").val();
+                        var url = "/currencies";
+                        var type = "POST";
+                        if(item_id != ""){
+                            var url = "/currencies/" + item_id;
+                            var type = "PUT";
+                        }
                         console.log("validated!"),
                         "Valid"==e?(
                             $.ajax({
-                                type: "POST",
-                                url: "/cost_centers",
+                                type: type,
+                                url: url,
                                 data: elements,
                                 //async: false,
                                 cache: false,
@@ -116,9 +174,11 @@ var KTModalNewTarget=function(){
                                                 confirmButton:"btn btn-primary"
                                             }
                                         }).then((function(e){
-                                            t.isConfirmed&&
-                                            o.hide(),
-                                            window.location= "/cost_centers"
+                                            //t.isConfirmed&&
+                                            a.reset(),
+                                            dt.draw(),
+                                            o.hide()
+                                            //window.location= "/currencies"
                                         }))
                                     }
                                 }
@@ -128,7 +188,7 @@ var KTModalNewTarget=function(){
                             text:"Sorry, looks like there are some errors detected, please try again.",
                             icon:"error",
                             buttonsStyling:!1,
-                            confirmButtonText:"Ok, got it!",
+                            confirmButtonText:"حسنا",
                             customClass:{
                                 confirmButton:"btn btn-primary"
                             }
@@ -162,97 +222,6 @@ var KTModalNewTarget=function(){
                     }))
                 }))
             )
-
-            //tree
-            $("#kt_docs_jstree_ajax").jstree({
-                "core": {
-                    "themes": {
-                        "responsive": false
-                    },
-                    // so that create works
-                    "check_callback": true,
-                    'data': {
-                        'url': function(node) {
-                            return '/cost_centers.json'; // Demo API endpoint -- Replace this URL with your set endpoint
-                        },
-                        'data': function(node) {
-                            console.log(node);
-                            return {
-                                'parent': node.id
-                            };
-                        }
-                    }
-                },
-                "types": {
-                    "default": {
-                        "icon": "fa fa-folder text-primary"
-                    },
-                    "file": {
-                        "icon": "fa fa-file  text-primary"
-                    }
-                },
-                "state": {
-                    "key": "demo3"
-                },
-                "plugins": ["dnd", "state", "types"]
-            });
-        }
-    }
-}();
-
-var KTDatatablesServerSide = function () {
-    // Shared variables
-    var table;
-    var dt;
-    var filterPayment;
-
-    // Private functions
-    var initDatatable = function () {
-        dt = $("#kt_table_users").DataTable({
-            searchDelay: 500,
-            processing: true,
-            serverSide: true,
-            order: [[1, 'asc']],
-            stateSave: true,
-          
-            ajax: {
-                'url': "/cost_centers/get_datatable",
-                "data": function ( d ) {
-                    d.account_id = $('[data-kt-user-table-filter="account_id"]').val();
-                    d.level = $('[data-kt-user-table-filter="level"]').val();
-                    d.from_date = $('[data-kt-user-table-filter="from_date"]').val();
-                    d.to_date = $('[data-kt-user-table-filter="to_date"]').val();
-                    d.main_accounts = $('[data-kt-user-table-filter="main_accounts"]').is(":checked");
-                }
-            },            
-            columns: [
-                { data: 'accountNumber' },
-                { data: 'nameAr' },
-                { data: 'debit' },
-                { data: 'credit' },
-                { data: 'total_debit' },
-                { data: 'total_credit' },
-                { data: 'debit_balance' },
-                { data: 'credit_balance' },
-            ],
-            columnDefs: [
-               
-            ],
-            // Add data-filter attribute
-            createdRow: function (row, data, dataIndex) {
-                $(row).find('td:eq(4)').attr('data-filter', data.CreditCardType);
-            }
-        });
-
-        table = dt.$;
-
-        // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
-        dt.on('draw', function () {
-            initToggleToolbar();
-            toggleToolbars();
-            handleDeleteRows();
-            KTMenu.createInstances();
-        });
     }
 
     // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
@@ -261,43 +230,6 @@ var KTDatatablesServerSide = function () {
         filterSearch.addEventListener('keyup', function (e) {
             dt.search(e.target.value).draw();
         });
-    }
-
-    // Filter Datatable
-    var handleFilterDatatable = () => {
-
-        const t=document.getElementById("kt_modal_new_target"),
-        n=new bootstrap.Modal(t);
-        // // Select filter options
-        var DisplayNumber = $('[data-kt-user-table-filter="display_number"]'); 
-        var DisplayName = $('[data-kt-user-table-filter="display_name"]'); 
-
-        const filterButton = document.querySelector('[data-kt-user-table-filter="filter"]');
-
-        // // Filter datatable on submit
-        filterButton.addEventListener('click', function () {
-
-            if(DisplayNumber.is(":checked")){
-                dt.column(0).visible(true);
-            }else{
-                dt.column(0).visible(false);
-            }
-            if(DisplayName.is(":checked")){
-                dt.column(1).visible(true);
-            }else{
-                dt.column(1).visible(false);
-            }
-            dt.draw();
-            n.hide();
-            
-
-        });
-
-        document.querySelector('[data-kt-user-table-filter="reset"]').addEventListener("click",(function(){
-            document.querySelector('[data-kt-user-table-filter="form"]').querySelectorAll("select").forEach((e=>{$(e).val("").trigger("change")})),
-            dt.search("").draw();
-            n.hide();
-        }));
     }
 
     // Delete customer
@@ -382,6 +314,7 @@ var KTDatatablesServerSide = function () {
         // Select elements
         const deleteSelected = document.querySelector('[data-kt-user-table-select="delete_selected"]');
 
+      
         // Deleted selected rows
         deleteSelected.addEventListener('click', function () {
             // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
@@ -452,118 +385,19 @@ var KTDatatablesServerSide = function () {
     return {
         init: function () {
             initDatatable();
+            handleValidations();
             handleSearchDatatable();
             initToggleToolbar();
-            handleFilterDatatable();
             handleDeleteRows();
             handleResetForm();
         }
     }
+
+    
+
 }();
 
-// Account Statement
-var KTDatatablesAccountStatement = function () {
-    // Shared variables
-    var table;
-    var dt;
-    var filterPayment;
-
-    // Private functions
-    var initDatatable = function () {
-        dt = $("#kt_table_users").DataTable({
-            searchDelay: 500,
-            processing: true,
-            serverSide: true,
-            order: [[1, 'asc']],
-            stateSave: true,
-            // select: {
-            //     style: 'multi',
-            //     selector: 'td:first-child input[type="checkbox"]',
-            //     className: 'row-selected'
-            // },
-            ajax: {
-                'url': "/cost_centers/get_account_statement"
-            },            
-            columns: [
-                { data: 'TranNo' },
-                { data: 'description' },
-                { data: 'debit' },
-                { data: 'credit' },
-                { data: 'balance' },
-                { data: 'date' },
-            ],
-            columnDefs: [
-                
-            ],
-            // Add data-filter attribute
-            // createdRow: function (row, data, dataIndex) {
-            //     $(row).find('td:eq(4)').attr('data-filter', data.CreditCardType);
-            // }
-        });
-
-        table = dt.$;
-
-        // Re-init functions on every table re-draw -- more info: https://datatables.net/reference/event/draw
-        dt.on('draw', function () {
-            KTMenu.createInstances();
-        });
-    }
-
-    // Search Datatable --- official docs reference: https://datatables.net/reference/api/search()
-    var handleSearchDatatable = function () {
-        const filterSearch = document.querySelector('[data-kt-user-table-filter="search"]');
-        filterSearch.addEventListener('keyup', function (e) {
-            dt.search(e.target.value).draw();
-        });
-    }
-
-    // Filter Datatable
-    var handleFilterDatatable = () => {
-
-        const t=document.getElementById("kt_modal_new_target"),
-        n=new bootstrap.Modal(t);
-        var DisplayNumber = $('[data-kt-user-table-filter="display_number"]'); 
-        var DisplayName = $('[data-kt-user-table-filter="display_name"]'); 
-
-        const filterButton = document.querySelector('[data-kt-user-table-filter="filter"]');
-
-        // // Filter datatable on submit
-        filterButton.addEventListener('click', function () {
-            if(DisplayNumber.is(":checked")){
-                dt.column(0).visible(true);
-            }else{
-                dt.column(0).visible(false);
-            }
-            if(DisplayName.is(":checked")){
-                dt.column(1).visible(true);
-            }else{
-                dt.column(1).visible(false);
-            }
-            dt.draw();
-            n.hide();
-        });
-
-        document.querySelector('[data-kt-user-table-filter="reset"]').addEventListener("click",(function(){
-            document.querySelector('[data-kt-user-table-filter="form"]').querySelectorAll("select").forEach((e=>{$(e).val("").trigger("change")})),
-            dt.search("").draw();
-            n.hide();
-        }));
-    }
-    // Public methods
-    return {
-        init: function () {
-            initDatatable();
-            handleSearchDatatable();
-            handleFilterDatatable();
-        }
-    }
-}();
-KTUtil.onDOMContentLoaded((function(){
-    if(window.location.href == "http://localhost:3000/cost_centers/trial_balance"){
-        KTDatatablesServerSide.init();
-    }else if(window.location.href == "http://localhost:3000/cost_centers/account_statements"){
-        KTDatatablesAccountStatement.init();
-    }else{
-        KTModalNewTarget.init();
-    }
-}));
+// On document ready
+KTUtil.onDOMContentLoaded(function () {
+    KTDatatablesServerSide.init();
+});

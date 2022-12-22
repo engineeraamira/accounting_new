@@ -1,0 +1,77 @@
+<%= form_with(model: setting) do |form| %>
+  <% if setting.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(setting.errors.count, "error") %> prohibited this setting from being saved:</h2>
+
+      <ul>
+        <% setting.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :key, style: "display: block" %>
+    <%= form.text_field :key %>
+  </div>
+
+  <div>
+    <%= form.label :description, style: "display: block" %>
+    <%= form.text_field :description %>
+  </div>
+
+  <div>
+    <%= form.label :value, style: "display: block" %>
+    <%= form.text_field :value %>
+  </div>
+
+  <div>
+    <%= form.label :boolean_value, style: "display: block" %>
+    <%= form.text_field :boolean_value %>
+  </div>
+
+  <div>
+    <%= form.label :value1_ar, style: "display: block" %>
+    <%= form.text_field :value1_ar %>
+  </div>
+
+  <div>
+    <%= form.label :value1_en, style: "display: block" %>
+    <%= form.text_field :value1_en %>
+  </div>
+
+  <div>
+    <%= form.label :value2_ar, style: "display: block" %>
+    <%= form.text_field :value2_ar %>
+  </div>
+
+  <div>
+    <%= form.label :value2_en, style: "display: block" %>
+    <%= form.text_field :value2_en %>
+  </div>
+
+  <div>
+    <%= form.label :text1_ar, style: "display: block" %>
+    <%= form.text_field :text1_ar %>
+  </div>
+
+  <div>
+    <%= form.label :text1_en, style: "display: block" %>
+    <%= form.text_field :text1_en %>
+  </div>
+
+  <div>
+    <%= form.label :text2_ar, style: "display: block" %>
+    <%= form.text_field :text2_ar %>
+  </div>
+
+  <div>
+    <%= form.label :text2_en, style: "display: block" %>
+    <%= form.text_field :text2_en %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>

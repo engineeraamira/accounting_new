@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_31_215202) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_18_143757) do
   create_table "accounts", force: :cascade do |t|
     t.string "name_ar"
     t.string "name_en"
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_215202) do
     t.integer "ancestry_depth", default: 0
     t.string "ancestry"
     t.integer "accounts_count", default: 0
+    t.boolean "required_cost_center", default: false
     t.index ["ancestry"], name: "index_accounts_on_ancestry"
     t.index ["parent_account"], name: "index_accounts_on_parent_account"
   end
@@ -58,6 +59,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_215202) do
     t.boolean "status", default: true
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "rate", default: 0.0
   end
 
   create_table "daily_transaction_details", force: :cascade do |t|
@@ -89,6 +91,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_31_215202) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["currency_id"], name: "index_daily_transactions_on_currency_id"
+  end
+
+  create_table "settings", force: :cascade do |t|
+    t.string "key"
+    t.string "description"
+    t.string "value"
+    t.boolean "boolean_value"
+    t.string "value1_ar"
+    t.string "value1_en"
+    t.string "value2_ar"
+    t.string "value2_en"
+    t.text "text1_ar"
+    t.text "text1_en"
+    t.text "text2_ar"
+    t.text "text2_en"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|

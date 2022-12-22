@@ -39,6 +39,7 @@ var KTDatatablesServerSide = function () {
                 'url': "/draw_trial_balance",
                 "data": function ( d ) {
                     d.account_id = $('[data-kt-user-table-filter="account_id"]').val();
+                    d.currency_id = $('[data-kt-user-table-filter="currency_id"]').val();
                     d.level = $('[data-kt-user-table-filter="level"]').val();
                     d.from_date = $('[data-kt-user-table-filter="from_date"]').val();
                     d.to_date = $('[data-kt-user-table-filter="to_date"]').val();

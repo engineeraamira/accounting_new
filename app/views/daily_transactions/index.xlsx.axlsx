@@ -7,7 +7,7 @@ wb.add_worksheet(name: "القيود") do |sheet|
         @daily_transaction = transaction.daily_transaction
         @cost_center = (transaction.cost_center_id != nil)? transaction.cost_center.name_ar : ""
         @currency = (transaction.currency_id != nil)? transaction.currency.name_ar : ""
-        sheet.add_row [@daily_transaction.id, @daily_transaction.trans_date.to_s, @daily_transaction.description, transaction.account.name_ar, transaction.description, transaction.debit, transaction.credit, @currency, @cost_center, transaction.item_date.to_s], :style => style2
+        sheet.add_row [@daily_transaction.trans_id, @daily_transaction.trans_date.to_s, @daily_transaction.description, transaction.account.name_ar, transaction.description, transaction.debit, transaction.credit, @currency, @cost_center, transaction.item_date.to_s], :style => style2
     end
 end
 

@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
+  resources :settings
   resources :daily_transaction_details
-  resources :daily_transactions
   resources :currencies
   resources :users
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
@@ -17,12 +17,15 @@ Rails.application.routes.draw do
 
   get 'account_statements' => 'account_statements#index'
   get 'draw_account_statement' => 'account_statements#draw_account_statement'
+  get 'draw_currencies' => 'currencies#draw_currencies'
 
 
   resources :cost_centers do
     collection do 
       get :trial_balance
       get :get_datatable
+      get :account_statements
+      get :get_account_statement
     end
   end
 
@@ -31,5 +34,8 @@ Rails.application.routes.draw do
     collection { post :import }
   end
 
+  resources :daily_transactions do
+    collection { post :import }
+  end
   
 end
