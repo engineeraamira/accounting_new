@@ -1,0 +1,7 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "الحسابات") do |sheet|
+    style1 = sheet.styles.add_style(:font_name => "Arial", :sz => 15, :i => true, :bg_color => "97d1e1", :fg_color => "091e64", :border => { :style => :thick, :color => "00" }, :alignment => {:horizontal=>:center, :vertical =>:center, :wrap_text => true })
+    style2 = sheet.styles.add_style(:font_name => "Arial", :sz => 15, :alignment => { :horizontal=> :center })
+    sheet.add_row ["اسم الحساب", "رمز الحساب", "الحساب الرئيسى", "المستوى", "عدد الأبناء", "ملاحظات"], :height => 25, :style => style1
+end
+

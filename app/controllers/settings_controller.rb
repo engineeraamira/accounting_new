@@ -4,6 +4,10 @@ class SettingsController < ApplicationController
   # GET /settings or /settings.json
   def index
     @settings = Setting.all
+    @default_language = @settings.find_by_key('default_language').value
+    @default_currency = @settings.find_by_key('default_currency').value
+    @company_logo = @settings.find_by_key('company_logo')
+    @logo_url = (@company_logo.image.attached?)? url_for(@company_logo.image) : '/demo7/dist/assets/media/svg/files/blank-image.svg'
     @months = ["يناير","فبراير","مارس","أبريل","مايو","يونيو","يولية","أغسطس","سبتمبر","أكتوبر","نوفمبر","ديسمبر"]
     @currencies = Currency.all
 
@@ -24,17 +28,18 @@ class SettingsController < ApplicationController
 
   # POST /settings or /settings.json
   def create
-    @setting = Setting.new(setting_params)
-
-    respond_to do |format|
-      if @setting.save
-        format.html { redirect_to setting_url(@setting), notice: "Setting was successfully created." }
-        format.json { render :show, status: :created, location: @setting }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @setting.errors, status: :unprocessable_entity }
-      end
+    @settings = Setting.all
+    @single_values = ["company_name","default_language","default_currency","mobile","email","fax"]
+    @single_values.each do |single_value|
+      @settings.where(key: single_value).update(value: params[single_value])
+    end    
+    @settings.where(key: "fiscal_year").update(value1_ar: params["fiscal_year_start"], value1_en: params["fiscal_year_end"])
+    if(params["company_logo"].present?)
+      @settings.find_by_key("company_logo").image.attach(params["company_logo"])
     end
+
+    render json: {"Success": true, result: t('saved_successfully')}
+
   end
 
   # PATCH/PUT /settings/1 or /settings/1.json

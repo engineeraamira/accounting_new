@@ -65,6 +65,6 @@ class DailyTransactionDetailsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def daily_transaction_detail_params
-      params.require(:daily_transaction_detail).permit(:daily_transaction_id, :account_id, :cost_center_id, :currency_id, :description, :debit, :credit, :item_date)
+      params.require(:daily_transaction_detail).permit(:daily_transaction_id, :account_id, :cost_center_id, :currency_id, :description, :debit, :credit, :item_date, :currency_rate)
     end
 end

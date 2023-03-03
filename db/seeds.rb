@@ -32,21 +32,21 @@
 # ])
 
 Setting.create([
-    {key: "company_name", value: "Progress"}
-    {key: "company_logo", value: "logo.png"}
-    {key: "company_signature", value: "logo.png"}
-    {key: "default_language", value: "ar"}
-    {key: "default_currency", value: "1"}
-    {key: "default_country", value: "1"}
-    {key: "default_timezone", value: "1"}
-    {key: "default_date", value: "gregorian"}
-    {key: "mobile", value: "01007460059"}
-    {key: "email", value: "accountant@account.com"}
-    {key: "fax", value: "2546325"}
-    {key: "city", value: "1"}
-    {key: "address", value: "fifth-street"}
-    {key: "fiscal_year", value1_ar: "2022-09-01", value1_en: "2023-08-30"}
-    {key: "commercial_registration_no", value: "123456789"}
-    {key: "no_of_decimals", value: "2"}
-    {key: "stop_login", boolean_value: false}
+    {key: "company_name", value: "Progress"},
+    {key: "company_logo", value: "logo.png"},
+    {key: "company_signature", value: "logo.png"},
+    {key: "default_language", value: "ar"},
+    {key: "default_currency", value: "1"},
+    {key: "default_country", value: "1"},
+    {key: "default_timezone", value: "1"},
+    {key: "default_date", value: "gregorian"},
+    {key: "mobile", value: "01007460059"},
+    {key: "email", value: "accountant@account.com"},
+    {key: "fax", value: "2546325"},
+    {key: "city", value: "1"},
+    {key: "address", value: "fifth-street"},
+    {key: "fiscal_year", value1_ar: "2022-09-01", value1_en: "2023-08-30"},
+    {key: "commercial_registration_no", value: "123456789"},
+    {key: "no_of_decimals", value: "2"},
+    {key: "stop_login", boolean_value: false},
 ])

@@ -11,12 +11,12 @@ var KTCreateAccount=function(){
             s=t.querySelector('[data-kt-stepper-action="next"]'),
             (r=new KTStepper(t)).on("kt.stepper.changed",(
                 function(e){
-                    4===r.getCurrentStepIndex()?(
+                    2===r.getCurrentStepIndex()?(
                         o.classList.remove("d-none"),
                         o.classList.add("d-inline-block"),
                         s.classList.add("d-none")
                     )
-                    :5===r.getCurrentStepIndex()?(
+                    :3===r.getCurrentStepIndex()?(
                         o.classList.add("d-none"),
                         s.classList.add("d-none")
                     )
@@ -37,10 +37,10 @@ var KTCreateAccount=function(){
                         KTUtil.scrollTop()
                     )
                     :Swal.fire({
-                        text:"Sorry, looks like there are some errors detected, please try again.",
+                        text:"عفوا, يبدو أن هناك بعض الأخطاء , حاول مرة أخرى",
                         icon:"error",
                         buttonsStyling:!1,
-                        confirmButtonText:"Ok, got it!",
+                        confirmButtonText:"حسنا",
                         customClass:{
                             confirmButton:"btn btn-light"
                         }
@@ -57,90 +57,53 @@ var KTCreateAccount=function(){
             })),
             a.push(FormValidation.formValidation(i,{
                 fields:{
-                    account_type:{
+                    company_name:{
                         validators:{
                             notEmpty:{
-                                message:"Account type is required"
-                            }
-                        }
-                    }
-                },
-                plugins:{
-                    trigger:new FormValidation.plugins.Trigger,
-                    bootstrap:new FormValidation.plugins.Bootstrap5({
-                        rowSelector:".fv-row",
-                        eleInvalidClass:"",
-                        eleValidClass:""
-                    })
-                }
-            })),
-            a.push(FormValidation.formValidation(i,{
-                fields:{
-                    account_team_size:{
-                        validators:{
-                            notEmpty:{
-                                message:"Time size is required"
+                                message:"اسم الشركة مطلوب"
                             }
                         }
                     },
-                    account_name:{
+                    // company_logo:{
+                    //     validators:{
+                    //         notEmpty:{
+                    //             message:"اللوجو مطلوب"
+                    //         }
+                    //     }
+                    // },
+                    default_language:{
                         validators:{
                             notEmpty:{
-                                message:"Account name is required"
+                                message:"اللغة الافتراضية مطلوبة"
                             }
                         }
                     },
-                    account_plan:{
+                    default_currency:{
                         validators:{
                             notEmpty:{
-                                message:"Account plan is required"
-                            }
-                        }
-                    }
-                },
-                plugins:{
-                    trigger:new FormValidation.plugins.Trigger,
-                    bootstrap:new FormValidation.plugins.Bootstrap5({
-                        rowSelector:".fv-row",
-                        eleInvalidClass:"",
-                        eleValidClass:""
-                    })
-                }
-            })),
-            a.push(FormValidation.formValidation(i,{
-                fields:{
-                    business_name:{
-                        validators:{
-                            notEmpty:{
-                                message:"Busines name is required"
+                                message:"العملة الافتراضية مطلوبة"
                             }
                         }
                     },
-                    business_descriptor:{
+                    mobile:{
                         validators:{
                             notEmpty:{
-                                message:"Busines descriptor is required"
+                                message:"رقم الجوال مطلوب"
+                            },
+                            digits:{
+                                message:"يجب أن يحتوى على أرقام فقط"
+                            },
+                            stringLength:{
+                                min:10,
+                                max:15,
+                                message:"لا يقل عن 10 ولا يزيد عن 15"
                             }
                         }
                     },
-                    business_type:{
+                    email:{
                         validators:{
                             notEmpty:{
-                                message:"Busines type is required"
-                            }
-                        }
-                    },
-                    business_description:{
-                        validators:{
-                            notEmpty:{
-                                message:"Busines description is required"
-                            }
-                        }
-                    },
-                    business_email:{
-                        validators:{
-                            notEmpty:{
-                                message:"Busines email is required"
+                                message:"البريد الإلكترونى مطلوب"
                             },
                             emailAddress:{
                                 message:"The value is not a valid email address"
@@ -159,49 +122,17 @@ var KTCreateAccount=function(){
             })),
             a.push(FormValidation.formValidation(i,{
                 fields:{
-                    card_name:{
+                    fiscal_year_start:{
                         validators:{
                             notEmpty:{
-                                message:"Name on card is required"
+                                message:"بداية السنة المالية مطلوب"
                             }
                         }
                     },
-                    card_number:{
+                    fiscal_year_end:{
                         validators:{
                             notEmpty:{
-                                message:"Card member is required"
-                            },
-                            creditCard:{
-                                message:"Card number is not valid"
-                            }
-                        }
-                    },
-                    card_expiry_month:{
-                        validators:{
-                            notEmpty:{
-                                message:"Month is required"
-                            }
-                        }
-                    },
-                    card_expiry_year:{
-                        validators:{
-                            notEmpty:{
-                                message:"Year is required"
-                            }
-                        }
-                    },
-                    card_cvv:{
-                        validators:{
-                            notEmpty:{
-                                message:"CVV is required"
-                            },
-                            digits:{
-                                message:"CVV must contain only digits"
-                            },
-                            stringLength:{
-                                min:3,
-                                max:4,
-                                message:"CVV must contain 3 to 4 digits only"
+                                message:"نهاية السنة المالية مطلوب"
                             }
                         }
                     }
@@ -210,31 +141,116 @@ var KTCreateAccount=function(){
                     trigger:new FormValidation.plugins.Trigger,
                     bootstrap:new FormValidation.plugins.Bootstrap5({
                         rowSelector:".fv-row",
-                        eleInvalidClass:"",eleValidClass:""
+                        eleInvalidClass:"",
+                        eleValidClass:""
                     })
                 }
             })),
+            // a.push(FormValidation.formValidation(i,{
+            //     fields:{
+            //         business_name:{
+            //             validators:{
+            //                 notEmpty:{
+            //                     message:"Busines name is required"
+            //                 }
+            //             }
+            //         },
+            //     },
+            //     plugins:{
+            //         trigger:new FormValidation.plugins.Trigger,
+            //         bootstrap:new FormValidation.plugins.Bootstrap5({
+            //             rowSelector:".fv-row",
+            //             eleInvalidClass:"",
+            //             eleValidClass:""
+            //         })
+            //     }
+            // })),
+            // a.push(FormValidation.formValidation(i,{
+            //     fields:{
+            //         card_number:{
+            //             validators:{
+            //                 notEmpty:{
+            //                     message:"Card member is required"
+            //                 },
+            //                 creditCard:{
+            //                     message:"Card number is not valid"
+            //                 }
+            //             }
+            //         }
+            //     },
+            //     plugins:{
+            //         trigger:new FormValidation.plugins.Trigger,
+            //         bootstrap:new FormValidation.plugins.Bootstrap5({
+            //             rowSelector:".fv-row",
+            //             eleInvalidClass:"",eleValidClass:""
+            //         })
+            //     }
+            // })),
             o.addEventListener("click",(function(e){
-                a[3].validate().then((function(t){
-                    console.log("validated!"),
+                a[1].validate().then((function(t){
+                    console.log("validated!");
+                    var elements = new FormData($('#kt_create_account_form')[0]);
                     "Valid"==t?(
-                        e.preventDefault(),
-                        o.disabled=!0,
-                        o.setAttribute("data-kt-indicator","on"),
-                        setTimeout(
-                            (
-                                function(){
-                                    o.removeAttribute("data-kt-indicator"),
-                                    o.disabled=!1,r.goNext()
+                        $.ajax({
+                            type: 'POST',
+                            url: '/settings',
+                            data: elements,
+                            //async: false,
+                            cache: false,
+                            contentType: false,
+                            processData: false,
+                            dataType: "JSON",
+                            beforeSend: function (xhr) {
+                                e.preventDefault();
+                                o.disabled=!0;
+                                o.setAttribute("data-kt-indicator","on");
+                                xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'));
+                            },
+                            complete: function () {
+                                o.removeAttribute("data-kt-indicator"),
+                                o.disabled=!1,
+                                r.goNext()
+                            },
+                            success: function (response)
+                            {
+                                if (response !== null && response.hasOwnProperty("Errors")) {
+                                    //console.log(response['Errors']);
+                                    var obj = response["Errors"];
+                                    var stringerror = '';
+                                    for (var prop in obj) {
+                                        stringerror += '* ' + obj[prop] + '</br>';
+                                    }
+                                    Swal.fire({
+                                        text:stringerror,
+                                        icon:"error",buttonsStyling:!1,
+                                        confirmButtonText: window.I18n['ok_got_it'],
+                                        customClass:{
+                                            confirmButton:"btn btn-primary"
+                                        }
+                                    });
+                                } else if (response !== null && response.hasOwnProperty("Success")) {
+                                    var msg = response["result"];
+                                    Swal.fire({
+                                        text:msg,
+                                        icon:"success",
+                                        buttonsStyling:!1,
+                                        confirmButtonText: window.I18n['ok_got_it'],
+                                        customClass:{
+                                            confirmButton:"btn btn-primary"
+                                        }
+                                    }).then((function(e){
+                                        window.location= "/settings"
+                                    }))
                                 }
-                            ),2e3
-                        )
+                            }
+                        }) 
+                                
                     )
                     :Swal.fire({
-                        text:"Sorry, looks like there are some errors detected, please try again.",
+                        text:"عفوا, يبدو أن هناك بعض الأخطاء , حاول مرة أخرى",
                         icon:"error",
                         buttonsStyling:!1,
-                        confirmButtonText:"Ok, got it!",
+                        confirmButtonText:"حسنا!",
                         customClass:{confirmButton:"btn btn-light"}
                     })
                     .then((function(){
@@ -242,6 +258,9 @@ var KTCreateAccount=function(){
                     }))
                 }))
             })),
+            $(i.querySelector('[name="fiscal_year_start"]')).flatpickr({enableTime:0,dateFormat:"Y-m-d"}),
+            $(i.querySelector('[name="fiscal_year_end"]')).flatpickr({enableTime:0,dateFormat:"Y-m-d"}),
+
             $(i.querySelector('[name="card_expiry_month"]')).on("change",(function(){
                 a[3].revalidateField("card_expiry_month")
             })),

@@ -35,6 +35,9 @@ var KTDatatablesServerSide = function () {
             //     selector: 'td:first-child input[type="checkbox"]',
             //     className: 'row-selected'
             // },
+            language: {
+                "sInfo": "عرض" + " _START_ " + "إلي" + " _END_ " + "من" + " _TOTAL_ " ,
+            },
             ajax: {
                 'url': "/draw_trial_balance",
                 "data": function ( d ) {
@@ -126,7 +129,6 @@ var KTDatatablesServerSide = function () {
         dt.on('draw', function () {
             initToggleToolbar();
             toggleToolbars();
-            handleDeleteRows();
             KTMenu.createInstances();
         });
     }
@@ -209,74 +211,6 @@ var KTDatatablesServerSide = function () {
             n.hide();
         }));
     }
-
-    // Delete customer
-    var handleDeleteRows = () => {
-        // Select all delete buttons
-        const deleteButtons = document.querySelectorAll('[data-kt-user-table-filter="delete_row"]');
-
-        deleteButtons.forEach(d => {
-            // Delete button on click
-            d.addEventListener('click', function (e) {
-                e.preventDefault();
-
-                // Select parent row
-                const parent = e.target.closest('tr');
-
-                // Get customer name
-                const customerName = parent.querySelectorAll('td')[1].innerText;
-
-                // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
-                Swal.fire({
-                    text: "Are you sure you want to delete " + customerName + "?",
-                    icon: "warning",
-                    showCancelButton: true,
-                    buttonsStyling: false,
-                    confirmButtonText: "Yes, delete!",
-                    cancelButtonText: "No, cancel",
-                    customClass: {
-                        confirmButton: "btn fw-bold btn-danger",
-                        cancelButton: "btn fw-bold btn-active-light-primary"
-                    }
-                }).then(function (result) {
-                    if (result.value) {
-                        // Simulate delete request -- for demo purpose only
-                        Swal.fire({
-                            text: "Deleting " + customerName,
-                            icon: "info",
-                            buttonsStyling: false,
-                            showConfirmButton: false,
-                            timer: 2000
-                        }).then(function () {
-                            Swal.fire({
-                                text: "You have deleted " + customerName + "!.",
-                                icon: "success",
-                                buttonsStyling: false,
-                                confirmButtonText: "Ok, got it!",
-                                customClass: {
-                                    confirmButton: "btn fw-bold btn-primary",
-                                }
-                            }).then(function () {
-                                // delete row data from server and re-draw datatable
-                                dt.draw();
-                            });
-                        });
-                    } else if (result.dismiss === 'cancel') {
-                        Swal.fire({
-                            text: customerName + " was not deleted.",
-                            icon: "error",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        });
-                    }
-                });
-            })
-        });
-    }
-
     // Reset Filter
     var handleResetForm = () => {
         // // Select reset button
@@ -298,75 +232,6 @@ var KTDatatablesServerSide = function () {
         // Select all checkboxes
         const container = document.querySelector('#draw_trial_balance');
         //const checkboxes = container.querySelectorAll('[type="checkbox"]');
-
-        // Select elements
-        const deleteSelected = document.querySelector('[data-kt-user-table-select="delete_selected"]');
-
-        //// Toggle delete selected toolbar
-        // checkboxes.forEach(c => {
-        //     // Checkbox on click event
-        //     c.addEventListener('click', function () {
-        //         setTimeout(function () {
-        //             toggleToolbars();
-        //         }, 50);
-        //     });
-        // });
-
-        // Deleted selected rows
-        deleteSelected.addEventListener('click', function () {
-            // SweetAlert2 pop up --- official docs reference: https://sweetalert2.github.io/
-            Swal.fire({
-                text: "Are you sure you want to delete selected customers?",
-                icon: "warning",
-                showCancelButton: true,
-                buttonsStyling: false,
-                showLoaderOnConfirm: true,
-                confirmButtonText: "Yes, delete!",
-                cancelButtonText: "No, cancel",
-                customClass: {
-                    confirmButton: "btn fw-bold btn-danger",
-                    cancelButton: "btn fw-bold btn-active-light-primary"
-                },
-            }).then(function (result) {
-                if (result.value) {
-                    // Simulate delete request -- for demo purpose only
-                    Swal.fire({
-                        text: "Deleting selected customers",
-                        icon: "info",
-                        buttonsStyling: false,
-                        showConfirmButton: false,
-                        timer: 2000
-                    }).then(function () {
-                        Swal.fire({
-                            text: "You have deleted all selected customers!.",
-                            icon: "success",
-                            buttonsStyling: false,
-                            confirmButtonText: "Ok, got it!",
-                            customClass: {
-                                confirmButton: "btn fw-bold btn-primary",
-                            }
-                        }).then(function () {
-                            // delete row data from server and re-draw datatable
-                            dt.draw();
-                        });
-
-                        // Remove header checked box
-                        const headerCheckbox = container.querySelectorAll('[type="checkbox"]')[0];
-                        headerCheckbox.checked = false;
-                    });
-                } else if (result.dismiss === 'cancel') {
-                    Swal.fire({
-                        text: "Selected customers was not deleted.",
-                        icon: "error",
-                        buttonsStyling: false,
-                        confirmButtonText: "Ok, got it!",
-                        customClass: {
-                            confirmButton: "btn fw-bold btn-primary",
-                        }
-                    });
-                }
-            });
-        });
     }
 
     // Toggle toolbars
@@ -403,6 +268,130 @@ var KTDatatablesServerSide = function () {
         // }
     }
 
+
+    // Filter Datatable
+    var handleExportDatatable = () => {
+        var i,o,a,t,e,n;
+        (i=document.querySelector("#kt_modal_export"))&&
+            (
+                o=new bootstrap.Modal(i),
+                a=document.querySelector("#kt_modal_export_form"),
+                t=document.getElementById("kt_modal_export_submit"),
+                e=document.getElementById("kt_modal_export_cancel"),
+                n=FormValidation.formValidation(a,{
+                    fields:{
+                        file_format:{
+                            validators:{
+                                notEmpty:{
+                                    message:"نوع الملف مطلوب"
+                                }
+                            }
+                        },
+                    },
+                    plugins:{
+                        trigger:new FormValidation.plugins.Trigger,
+                        bootstrap:new FormValidation.plugins.Bootstrap5({
+                            rowSelector:".fv-row",
+                            eleInvalidClass:"",
+                            eleValidClass:""
+                        })
+                    }
+                }),
+                t.addEventListener("click",(function(e){
+                    e.preventDefault(),
+                    n&&n.validate().then((function(e){
+                        var elements = new FormData($('#kt_modal_export_form')[0]);
+                        
+                        var export_form = $('#kt_modal_export_form');
+                        export_form.append('<input type="hidden" name="account_id" value="'+$('[data-kt-user-table-filter="account_id"]').val()+'" />');
+                        export_form.append('<input type="hidden" name="currency_id" value="'+$('[data-kt-user-table-filter="currency_id"]').val()+'" />');
+                        export_form.append('<input type="hidden" name="level" value="'+$('[data-kt-user-table-filter="level"]').val()+'" />');
+                        export_form.append('<input type="hidden" name="from_date" value="'+$('[data-kt-user-table-filter="from_date"]').val()+'" />');
+                        export_form.append('<input type="hidden" name="to_date" value="'+$('[data-kt-user-table-filter="to_date"]').val()+'" />');
+                        export_form.append('<input type="hidden" name="main_accounts" value="'+$('[data-kt-user-table-filter="main_accounts"]').is(":checked")+'" />');
+
+                        // elements.append('account_id', $('[data-kt-user-table-filter="account_id"]').val());
+                        // elements.append('currency_id', $('[data-kt-user-table-filter="currency_id"]').val());
+                        // elements.append('level', $('[data-kt-user-table-filter="level"]').val());
+                        // elements.append('from_date', $('[data-kt-user-table-filter="from_date"]').val());
+                        // elements.append('to_date', $('[data-kt-user-table-filter="to_date"]').val());
+                        // elements.append('main_accounts', $('[data-kt-user-table-filter="main_accounts"]').is(":checked"));
+                        // console.log("validated!"),
+                        "Valid"==e?(
+                            $('#kt_modal_export_form').submit()
+                            // $.ajax({
+                            //     type: "POST",
+                            //     url: "/export_trial_balance",
+                            //     data: elements,
+                            //     //async: false,
+                            //     cache: false,
+                            //     contentType: false,
+                            //     processData: false,
+                            //     dataType: "JSON",
+                            //     beforeSend: function (xhr) {
+                            //         xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))
+                            //         t.setAttribute("data-kt-indicator","on");
+                            //         t.disabled=!0;
+                            //     },
+                            //     complete: function () {
+                                    
+                            //     },
+                            //     success: function (response)
+                            //     {
+                            //         if (response !== null && response.hasOwnProperty("Errors")) {
+                            //             //console.log(response['Errors']);
+                            //             var obj = response["Errors"];
+                            //             var stringerror = '';
+                            //             for (var prop in obj) {
+                            //                 stringerror += '* ' + obj[prop] + '</br>';
+                            //             }
+                            //             Swal.fire({
+                            //                 text:stringerror,
+                            //                 icon:"error",buttonsStyling:!1,
+                            //                 confirmButtonText: window.I18n['ok_got_it'],
+                            //                 customClass:{
+                            //                     confirmButton:"btn btn-primary"
+                            //                 }
+                            //             });
+                            //         } else if (response !== null && response.hasOwnProperty("Success")) {
+                            //             var msg = response["result"];
+                            //             t.removeAttribute("data-kt-indicator"),
+                            //             t.disabled=!1,
+                            //             Swal.fire({
+                            //                 text:"Done",
+                            //                 icon:"success",
+                            //                 buttonsStyling:!1,
+                            //                 confirmButtonText: window.I18n['ok_got_it'],
+                            //                 customClass:{
+                            //                     confirmButton:"btn btn-primary"
+                            //                 }
+                            //             }).then((function(e){
+                            //                 t.isConfirmed&&
+                            //                 o.hide(),
+                            //                 url_redirect({url: "/export_pdf",
+                            //                     method: "get",
+                            //                     data: {"accounts":msg}
+                            //                 });
+                            //             }))
+                            //         }
+                            //     }
+                            // }) 
+                        )
+                        :Swal.fire({
+                            text:"حذث خطأ ما",
+                            icon:"error",
+                            buttonsStyling:!1,
+                            confirmButtonText:"حسنا",
+                            customClass:{
+                                confirmButton:"btn btn-primary"
+                            }
+                        })
+                    }))
+                }))
+            )
+
+    }
+
     // Public methods
     return {
         init: function () {
@@ -410,8 +399,8 @@ var KTDatatablesServerSide = function () {
             handleSearchDatatable();
             initToggleToolbar();
             handleFilterDatatable();
-            handleDeleteRows();
             handleResetForm();
+            handleExportDatatable();
         }
     }
 }();

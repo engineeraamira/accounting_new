@@ -9,6 +9,12 @@ class AccountsController < ApplicationController
     end
   end
 
+  def export_form
+    respond_to do |format|
+        format.xlsx
+    end
+  end
+
   def import
     Account.import(params[:file])
     redirect_to accounts_path, notice: "تم استيراد الحسابات بنجاح"

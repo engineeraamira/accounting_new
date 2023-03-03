@@ -1,0 +1,15 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "ميزان المراجعة") do |sheet|
+    style1 = sheet.styles.add_style(:font_name => "Arial", :sz => 15, :i => true, :bg_color => "97d1e1", :fg_color => "091e64", :border => { :style => :thick, :color => "00" }, :alignment => {:horizontal=>:center, :vertical =>:center, :wrap_text => true })
+    style2 = sheet.styles.add_style(:font_name => "Arial", :sz => 15, :alignment => { :horizontal=> :center })
+    sheet.add_row ["رمز الحساب", "اسم الحساب", " رصيد مدين", "رصيد دائن", " مجموع مدين","مجموع دائن" , "رصيد مدين","رصيد دائن"], :height => 25, :style => style1
+    @accounts.each do |account|
+        @debit = @familiar_array[account.id][0]
+        @credit = @familiar_array[account.id][1]
+        @difference = @debit - @credit
+        @balance_debit = (@difference > 0)?  @difference : 0
+        @balance_credit = (@difference < 0)?  @difference.abs : 0
+        sheet.add_row [account.account_number, account.name_ar, 0, 0, @debit , @credit, @balance_debit, @balance_credit], :style => style2
+    end
+end
+

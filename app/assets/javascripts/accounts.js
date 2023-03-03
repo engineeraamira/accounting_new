@@ -3,6 +3,7 @@ var KTModalNewTarget=function(){
     var t,e,n,a,o,i;
 
     function ShowTree(){
+        var select_level = $("#select_level").val();
          //tree
          $("#kt_docs_jstree_ajax").jstree({
             "core": {
@@ -34,8 +35,30 @@ var KTModalNewTarget=function(){
             "state": {
                 "key": "demo3"
             },
-            "plugins": ["dnd", "state", "types"]
+            "plugins": ["dnd", "state", "types"],
+            //"open_node": [376],
+            //"close_all": -1
+        // }).on('ready.jstree', function () {
+        //     $("#kt_docs_jstree_ajax").jstree("close_all");
+        // });
+
+        }).on('ready.jstree', function () {
+            $("#kt_docs_jstree_ajax").jstree("close_all");
+            var $tree = $(this);
+            $($tree.jstree().get_json($tree, {
+                flat: true
+            }))
+            .each(function(index, value) {
+                var node = $("#kt_docs_jstree_ajax").jstree().get_node(this.id);
+                //console.log(node);
+                var lvl = node.parents.length;
+                if (lvl < select_level) {
+                    $("#kt_docs_jstree_ajax").jstree().open_node({"id":node.id});
+                }    
+            });
         });
+
+        
     }
     return{
         init:function()
@@ -356,6 +379,12 @@ var KTModalNewTarget=function(){
                 r.on("removedfile",(function(e){r.files.length<1&&(t.querySelector(".dropzone-upload").style.display="none",
                 t.querySelector(".dropzone-remove-all").style.display="none")}))
             })()
+
+            $("#select_level").change(function(){   
+                $("#kt_docs_jstree_ajax").jstree("destroy");  
+                ShowTree();          
+               
+            });
         }
     }
 }();

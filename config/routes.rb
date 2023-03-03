@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   post 'search_accounts' => 'daily_transactions#search_accounts'
   post 'transaction_details' => 'daily_transactions#transaction_details'
   get 'draw_trial_balance' => 'trial_balance#get_datatable'
+  post 'export_trial_balance' => 'trial_balance#export_trial_balance'
+  get 'export_pdf' => 'trial_balance#export_pdf'
+
+  
 
 
   get 'trial_balance' => 'trial_balance#index'
@@ -31,7 +35,10 @@ Rails.application.routes.draw do
 
 
   resources :accounts do
-    collection { post :import }
+    collection { 
+      post :import 
+      get :export_form
+    }
   end
 
   resources :daily_transactions do

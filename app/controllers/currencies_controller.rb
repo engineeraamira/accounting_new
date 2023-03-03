@@ -102,6 +102,6 @@ end
 
     # Only allow a list of trusted parameters through.
     def currency_params
-      params.require(:currency).permit(:name_en, :name_ar, :code, :status)
+      params.require(:currency).permit(:name_en, :name_ar, :code, :status, :rate)
     end
 end
