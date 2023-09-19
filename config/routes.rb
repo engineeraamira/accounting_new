@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   root 'home#index'
 
+  get 'dashboard' => 'home#dashboard'
   get 'accounts_tree' => 'accounts#accounts_tree'
   post 'search_accounts' => 'daily_transactions#search_accounts'
   post 'transaction_details' => 'daily_transactions#transaction_details'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_31_200126) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_03_095401) do
   create_table "accounts", force: :cascade do |t|
     t.string "name_ar"
     t.string "name_en"
@@ -157,6 +157,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_31_200126) do
     t.integer "failed_attempts", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "encrypted_password", limit: 128
+    t.string "confirmation_token", limit: 128
+    t.string "remember_token", limit: 128
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
+    t.index ["email"], name: "index_users_on_email"
+    t.index ["remember_token"], name: "index_users_on_remember_token", unique: true
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

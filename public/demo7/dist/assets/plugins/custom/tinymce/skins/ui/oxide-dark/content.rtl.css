@@ -359,7 +359,7 @@ pre[class*=language-] {
   height: 10px;
   position: absolute;
   width: 10px;
-  z-index: 10000;
+  z-index: 1298;
 }
 
 .mce-content-body div.mce-resizehandle:hover {
@@ -598,7 +598,7 @@ pre[class*=language-] {
 
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   .mce-content-body td[data-mce-selected]::after,
-.mce-content-body th[data-mce-selected]::after {
+  .mce-content-body th[data-mce-selected]::after {
     border-color: rgba(0, 84, 180, 0.7);
   }
 }
